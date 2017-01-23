@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+http://www.springframework.org/schema/context  
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">  
+
+<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+<mvc:annotation-driven/>
+<mvc:resources mapping="/resources/**" location="resources/"/>
+    <context:component-scan  base-package="com.java.controller" /> 
+        <context:component-scan  base-package="com.java.service" /> 
+        <context:component-scan  base-package="com.java.dao" />
+    
+     
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="prefix" value="/WEB-INF/jsp/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>  
+    
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />  
+<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />  
+<property name="username" value="rohitsanka" />  
+<property name="password" value="rohit" />  
+</bean>  
+  
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+<property name="dataSource" ref="ds"></property>  
+</bean>  
+  
+<bean id="loginDAO" class="com.java.dao.LoginDAO">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+</bean>
+<bean id="orderDAO" class="com.java.dao.OrderDAO">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+</bean>
+<bean id="adminDAO" class="com.java.dao.AdminDAO">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+</bean>
+<bean id="managerDAO" class="com.java.dao.ManagerDAO">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+</bean>
+<bean id="representativeDAO" class="com.java.dao.RepresentativeDAO">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+</bean>
+</beans>
